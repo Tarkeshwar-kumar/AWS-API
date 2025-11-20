@@ -13,6 +13,7 @@ jobs:
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       ECR_REPO: ${{ secrets.ECR_REPOSITORY }}
+      ACOOUNT: 642916324385.dkr.ecr.us-east-1.amazonaws.com
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -44,4 +45,4 @@ jobs:
         run: |
           docker build -f Dockerfile -t ${ECR_REPO}/aws_api:latest .
           echo "Pusing the image to ${ECR_REPO}/${{ inputs.ecr-repo-name }}:${{ inputs.image-tag }}"
-          docker push ${ECR_REPO}/aws_api:latest
+          docker push 642916324385.dkr.ecr.ap-southeast-1.amazonaws.com/${ECR_REPO}/aws_api:latest
