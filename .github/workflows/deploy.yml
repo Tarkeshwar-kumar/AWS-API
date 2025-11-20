@@ -42,8 +42,8 @@ jobs:
 
       - name: Build & push Docker image to ECR
         run: |
-          docker build -f Dockerfile -t ${ECR_REPO}/AWS-API}:latest .
-          
+          docker build -f Dockerfile -t ${ECR_REPO}/AWS-API:latest .
+
       - name: Output image URI
         run: |
           echo "Image pushed: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"
