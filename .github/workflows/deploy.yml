@@ -43,6 +43,6 @@ jobs:
 
       - name: Build & push Docker image to ECR
         run: |
-          docker build -f Dockerfile -t ${ECR_REPO}/aws_api:latest .
-          echo "Pusing the image to ${ECR_REPO}/${{ inputs.ecr-repo-name }}:${{ inputs.image-tag }}"
-          docker push 642916324385.dkr.ecr.ap-southeast-1.amazonaws.com/${ECR_REPO}/aws_api:latest
+          ecr_registry=642916324385.dkr.ecr.ap-southeast-1.amazonaws.com
+          docker build -f Dockerfile -t ${ecr_registry}/aws_api:latest .
+          docker push {ecr_registry}/aws_api:latest
