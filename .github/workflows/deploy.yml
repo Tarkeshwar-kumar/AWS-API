@@ -44,4 +44,4 @@ jobs:
         run: |
           docker build -f Dockerfile -t ${ECR_REPO}/aws_api:latest .
           echo "Pusing the image to ${ECR_REPO}/${{ inputs.ecr-repo-name }}:${{ inputs.image-tag }}"
-          docker push ${ECR_REPO}/aws_cli:latest
+          docker push ${ECR_REPO}/aws_api:latest
