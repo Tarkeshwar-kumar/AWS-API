@@ -28,17 +28,17 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Ensure ECR repository exists
-        run: |
-          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-          ECR_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}"
-          echo "ECR_URI=${ECR_URI}" >> $GITHUB_OUTPUT
-          if ! aws ecr describe-repositories --repository-names "${ECR_REPO}" >/dev/null 2>&1; then
-            echo "Creating ECR repository ${ECR_REPO}"
-            aws ecr create-repository --repository-name "${ECR_REPO}" --image-scanning-configuration scanOnPush=true
-          else
-            echo "Repository ${ECR_REPO} already exists"
-          fi
+      # - name: Ensure ECR repository exists
+      #   run: |
+      #     ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      #     ECR_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}"
+      #     echo "ECR_URI=${ECR_URI}" >> $GITHUB_OUTPUT
+      #     if ! aws ecr describe-repositories --repository-names "${ECR_REPO}" >/dev/null 2>&1; then
+      #       echo "Creating ECR repository ${ECR_REPO}"
+      #       aws ecr create-repository --repository-name "${ECR_REPO}" --image-scanning-configuration scanOnPush=true
+      #     else
+      #       echo "Repository ${ECR_REPO} already exists"
+      #     fi
 
       - name: Build & push Docker image to ECR
         uses: docker/build-push-action@v4
