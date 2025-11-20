@@ -44,5 +44,5 @@ jobs:
       - name: Build & push Docker image to ECR
         run: |
           ecr_registry=642916324385.dkr.ecr.ap-southeast-1.amazonaws.com
-          docker build -f Dockerfile -t ${ecr_registry}/aws_api:latest .
-          docker push ${ecr_registry}/aws_api:latest
+          docker build -f Dockerfile -t ${ecr_registry}/aws_ui:latest .
+          docker push ${ecr_registry}/aws_ui:latest
