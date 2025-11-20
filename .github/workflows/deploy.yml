@@ -42,7 +42,7 @@ jobs:
 
       - name: Build & push Docker image to ECR
         run: |
-          docker build -f Dockerfile -t ${ECR_REPO}/AWS-API:latest .
+          docker build -f Dockerfile -t ${ECR_REPO}/aws_api:latest .
 
       - name: Output image URI
         run: |
