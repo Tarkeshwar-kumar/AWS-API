@@ -43,7 +43,5 @@ jobs:
       - name: Build & push Docker image to ECR
         run: |
           docker build -f Dockerfile -t ${ECR_REPO}/aws_api:latest .
-
-      - name: Output image URI
-        run: |
-          echo "Image pushed: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}"
+          echo "Pusing the image to ${ECR_REPO}/${{ inputs.ecr-repo-name }}:${{ inputs.image-tag }}"
+          docker push ${ECR_REPO}/aws_cli:latest
