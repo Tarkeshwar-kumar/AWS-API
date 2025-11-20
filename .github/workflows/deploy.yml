@@ -13,7 +13,6 @@ jobs:
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       ECR_REPO: ${{ secrets.ECR_REPOSITORY }}
-      ACOOUNT: 642916324385.dkr.ecr.us-east-1.amazonaws.com
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,6 +42,7 @@ jobs:
 
       - name: Build & push Docker image to ECR
         run: |
+          aws sts get-caller-identity
           ecr_registry=642916324385.dkr.ecr.ap-southeast-1.amazonaws.com
           docker build -f Dockerfile -t ${ecr_registry}/aws_ui:latest .
           docker push ${ecr_registry}/aws_ui:latest
