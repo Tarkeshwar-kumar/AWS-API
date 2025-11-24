@@ -40,11 +40,20 @@ jobs:
       #       echo "Repository ${ECR_REPO} already exists"
       #     fi
 
+
+
+      - name: Build docker image
+        run: |
+          aws sts get-caller-identity
+          ecr_registry=642916324385.dkr.ecr.ap-southeast-1.amazonaws.com
+          docker build -f Dockerfile -t ${ecr_registry}/aws_ui:latest .
+          docker push ${ecr_registry}/aws_ui:latest
+
       - name: Scan built image with Trivy
         uses: aquasecurity/trivy-action@0.28.0
         id: trivy-scan
         with:
-          image-ref: ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPOSITORY }}:latest
+          image-ref: 642916324385.dkr.ecr.ap-southeast-1.amazonaws.com/aws_ui:latest
           format: 'table'
           output: 'trivy-image-report.json'
           exit-code: '1'
@@ -53,9 +62,7 @@ jobs:
         env:
           TRIVY_CACHE_DIR: /tmp/.cache/trivy
 
-      - name: Build & push Docker image to ECR
+      - name: Push docker image
         run: |
-          aws sts get-caller-identity
           ecr_registry=642916324385.dkr.ecr.ap-southeast-1.amazonaws.com
-          docker build -f Dockerfile -t ${ecr_registry}/aws_ui:latest .
           docker push ${ecr_registry}/aws_ui:latest
